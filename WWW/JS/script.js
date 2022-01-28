@@ -10,22 +10,12 @@ $(document).ready(function() {
         }
         switch (btnValue) {
             case "+":
-                if (!value.endsWith("+")) add("+")
-                break;
             case "-":
-                if (!value.endsWith("-")) add("-")
-                break;
             case "x":
-                if (!value.endsWith("x")) add("x")
-                break;
             case "÷":
-                if (!value.endsWith("÷")) add("÷")
-                break;
             case ")":
-                if (!value.endsWith(")")) add(")")
-                break;
             case "(":
-                if (!value.endsWith("(")) add("(")
+                if (!value.endsWith(btnValue)) add(btnValue);
                 break;
 
             case "C":
