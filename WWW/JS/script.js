@@ -9,6 +9,25 @@ $(document).ready(function() {
             text.val(value + v);
         }
         switch (btnValue) {
+            case "+":
+                if (!value.endsWith("+")) add("+")
+                break;
+            case "-":
+                if (!value.endsWith("-")) add("-")
+                break;
+            case "x":
+                if (!value.endsWith("x")) add("x")
+                break;
+            case "÷":
+                if (!value.endsWith("÷")) add("÷")
+                break;
+            case ")":
+                if (!value.endsWith(")")) add(")")
+                break;
+            case "(":
+                if (!value.endsWith("(")) add("(")
+                break;
+
             case "C":
                 text.val("0")
                 break;
@@ -26,8 +45,7 @@ $(document).ready(function() {
             default:
                 if (value === "0") {
                     text.val(btnValue)
-                } else
-                if (value.length < 25) {
+                } else if (value.length < 25) {
                     add(btnValue)
                 }
 
