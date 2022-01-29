@@ -1,6 +1,20 @@
 $(document).ready(function() {
-    const MAX_LENGTH = 26;
     const specialChars = ["+", "-", "x", "÷"]
+
+    function escapeRegExp(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    }
+
+    function count(text, s) {
+        const r = new RegExp(escapeRegExp(s), 'g');
+        return (text.match(r) || []).length;
+    }
+
+    function endsWithSpecialChars(text) {
+        return specialChars.some(function(c) { return text.endsWith(c) })
+    }
+
+    const MAX_LENGTH = 26;
     $(".btn").on("click", function() {
         var text = $(".text-field")
         var value = text.val()
@@ -14,14 +28,15 @@ $(document).ready(function() {
             case "-":
             case "x":
             case "÷":
-                if (specialChars.every(function(c) { return !value.endsWith(c) })) add(btnValue);
+                if (!endsWithSpecialChars(value)) add(btnValue);
                 break;
 
             case ")":
-            case "(":
+                if (count(value, "(") > count(value, ")") && !endsWithSpecialChars(value))
+                    add(btnValue);
                 break;
             case "C":
-                text.val("0")
+                text.val("0");
                 break;
             case "←":
                 if (value.length > 1) {
