@@ -1,5 +1,6 @@
 $(document).ready(function() {
-
+    const MAX_LENGTH = 26;
+    const specialChars = ["+", "-", "x", "÷"]
     $(".btn").on("click", function() {
         var text = $(".text-field")
         var value = text.val()
@@ -13,11 +14,12 @@ $(document).ready(function() {
             case "-":
             case "x":
             case "÷":
-            case ")":
-            case "(":
-                if (!value.endsWith(btnValue)) add(btnValue);
+                if (specialChars.every(function(c) { return !value.endsWith(c) })) add(btnValue);
                 break;
 
+            case ")":
+            case "(":
+                break;
             case "C":
                 text.val("0")
                 break;
@@ -35,7 +37,7 @@ $(document).ready(function() {
             default:
                 if (value === "0") {
                     text.val(btnValue)
-                } else if (value.length < 25) {
+                } else if (value.length < MAX_LENGTH) {
                     add(btnValue)
                 }
 
