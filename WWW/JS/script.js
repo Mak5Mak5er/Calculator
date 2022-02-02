@@ -17,6 +17,7 @@ $(document).ready(function() {
     const MAX_LENGTH = 26;
     $(".btn").on("click", function() {
         var text = $(".text-field")
+        text.removeClass('error')
         var value = text.val()
         var btnValue = $(this).val()
 
@@ -32,8 +33,9 @@ $(document).ready(function() {
                 break;
 
             case ")":
-                if (count(value, "(") > count(value, ")") && !endsWithSpecialChars(value))
+                if (count(value, "(") > count(value, ")") && !endsWithSpecialChars(value) && !value.endsWith("(")) {
                     add(btnValue);
+                };
                 break;
             case "C":
                 text.val("0");
@@ -46,9 +48,16 @@ $(document).ready(function() {
             case ".":
                 if (!value.includes(".")) add(".")
                 break;
+            case "=":
+                if (count(value, "(") === count(value, ")") && !endsWithSpecialChars(value) && !value.endsWith("(")) {
+                    const newValue = value.replaceAll('÷', "/").replaceAll('x', "*")
+                    text.val(math.evaluate(newValue));
+                } else text.addClass('error')
+                break;
             case "0":
                 if (value !== '0') add("0")
                 break;
+
             default:
                 if (value === "0") {
                     text.val(btnValue)
