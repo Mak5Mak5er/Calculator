@@ -25,13 +25,18 @@ $(document).ready(function() {
             text.val(value + v);
         }
         switch (btnValue) {
-            case "+":
-            case "-":
             case "x":
             case "÷":
+                if (!endsWithSpecialChars(value) && !value.endsWith("(")) add(btnValue);
+                break;
+            case "+":
+            case "-":
                 if (!endsWithSpecialChars(value)) add(btnValue);
                 break;
-
+            case "x":
+            case "÷":
+                if (value.endsWith("("))
+                    break;
             case ")":
                 if (count(value, "(") > count(value, ")") && !endsWithSpecialChars(value) && !value.endsWith("(")) {
                     add(btnValue);
