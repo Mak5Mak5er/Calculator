@@ -76,3 +76,8 @@
     font-family: 'Didact Gothic', sans-serif;
     margin-bottom: 2px;
 }
+
+.error {
+    border-color: red;
+    color: red;
+}
